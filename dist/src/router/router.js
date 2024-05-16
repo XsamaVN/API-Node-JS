@@ -1,0 +1,24 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const BlogController_1 = require("../controller/BlogController");
+const UserController_1 = require("../controller/UserController");
+const auth_1 = require("../middleware/auth");
+const router = (0, express_1.Router)();
+const blogController = new BlogController_1.BlogController();
+router.use("/blogs", auth_1.auth);
+router.get("/blogs", blogController.findAll);
+router.post("/blogs", blogController.save);
+router.put("/blogs/:id", blogController.update);
+router.get("/blogs/:id", blogController.getOne);
+router.delete("/blogs/:id", blogController.delete);
+const userController = new UserController_1.UserController();
+router.get("/users", userController.findAll);
+router.post("/register", userController.register);
+router.post("/login", userController.login);
+router.get('', userController.getCurrentUser);
+router.put("/users/:id", userController.update);
+router.get("/users/:id", userController.getOne);
+router.delete("/users/:id", userController.delete);
+exports.default = router;
+//# sourceMappingURL=router.js.map
